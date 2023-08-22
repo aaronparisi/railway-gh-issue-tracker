@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
-import Issue from './Issue';
+import '../stylesheets/Repository.css';
+import Issue from './Issue.jsx';
 
 const Repository = ({ issues, setIssues, repository }) => {
   useEffect(() => {
@@ -8,7 +9,6 @@ const Repository = ({ issues, setIssues, repository }) => {
       fetch(`http://localhost:8080/issues?repo=${repository}`)
         .then((res) => res.json())
         .then((json) => {
-          debugger;
           setIssues((prev) => {
             return {
               ...prev,
@@ -32,7 +32,7 @@ const Repository = ({ issues, setIssues, repository }) => {
       <ul>
         {issues &&
           issues.map((issue) => {
-            return <Issue key={issue.name} issue={issue} />;
+            return <Issue key={issue.title} issue={issue} />;
           })}
       </ul>
     </section>

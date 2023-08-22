@@ -25,16 +25,18 @@ function App() {
       <header>
         <h1>Git Issue Tracker for user: TODO </h1>
       </header>
-      <Sidebar
-        repos={repos}
-        selectedRepo={selectedRepo}
-        setSelectedRepo={setSelectedRepo}
-      />
-      <Repository
-        issues={issues[selectedRepo]}
-        setIssues={setIssues}
-        repository={selectedRepo}
-      />
+      <section>
+        <Sidebar
+          repos={repos}
+          selectedRepo={selectedRepo}
+          setSelectedRepo={setSelectedRepo}
+        />
+        <Repository
+          issues={issues[selectedRepo]}
+          setIssues={setIssues}
+          repository={selectedRepo}
+        />
+      </section>
     </div>
   );
 }

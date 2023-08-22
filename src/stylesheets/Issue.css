@@ -1,0 +1,9 @@
+.issue {
+  height: 200px;
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1rem;
+
+  overflow: scroll;
+}

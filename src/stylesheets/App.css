@@ -1,18 +1,29 @@
 .App {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: stretch;
-  flex-wrap: wrap;
 
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .App > header {
-  flex: 0 0 100%;
+  width: 100%;
+  flex: 0 0 10vh;
+
   border-bottom: 1px solid black;
 
   margin: 0 auto;
   text-align: center;
+}
+
+.App > section {
+  flex: 0 0 90vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+
+  overflow: hidden;
 }
 
 .selected {
