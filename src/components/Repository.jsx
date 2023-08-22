@@ -4,9 +4,11 @@ import '../stylesheets/Repository.css';
 import Issue from './Issue.jsx';
 
 const Repository = ({ issues, setIssues, repository }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!issues && repository !== '') {
-      fetch(`http://localhost:8080/issues?repo=${repository}`)
+      fetch(`${apiUrl}/issues?repo=${repository}`)
         .then((res) => res.json())
         .then((json) => {
           setIssues((prev) => {
