@@ -14,13 +14,13 @@ const Sidebar = ({ repos, selectedRepo, setSelectedRepo }) => {
         {repos.map((repo) => {
           return (
             <li
-              key={repo}
-              className={repo === selectedRepo ? 'selected' : ''}
+              key={repo.name}
+              className={repo.name === selectedRepo ? 'selected' : ''}
               onClick={() => {
-                handleRepoSelection(repo);
+                handleRepoSelection(repo.name);
               }}
             >
-              {repo}
+              {repo.name}
             </li>
           );
         })}

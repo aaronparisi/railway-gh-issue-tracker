@@ -13,7 +13,7 @@ function App() {
     fetch('http://localhost:8080/repos')
       .then((res) => res.json())
       .then((json) => {
-        setRepos(() => json.map((repo) => repo.name));
+        setRepos(json);
         setSelectedRepo(json[0].name); // do I want this feature?
 
         return json;
