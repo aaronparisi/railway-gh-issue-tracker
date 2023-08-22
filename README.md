@@ -70,8 +70,6 @@ However, [gh api](https://cli.github.com/manual/gh_api) does not accept a `-d` f
 
 So my next thought was to just forego the `gh` CLI altogether and make requests directly with `curl`... but at that point I wondered why I didn't just use JavaScript, which I'm more familiar with.
 
-Mind you, I don't even know if that will work - clearly GitHub doesn't want me mass-creating issues, so I wonder if no matter what I do I'll be rate limited. TBD.
-
 One additional note: the `curl` command prints the http response headers when the `-i` flag is provided. I was under the imporession that extracting the headers and the body into separate variables would be trivial, but [this](https://dille.name/blog/2021/09/13/processing-response-headers-and-body-at-once-using-curl/) and [this](https://stackoverflow.com/questions/25852524/get-both-the-headers-and-the-body-of-a-curl-response-in-two-separated-variables) suggest otherwise.
 
 ChatGPT to the rescue though - after a number of iterations, it provided the following lines, which did what I wanted:
@@ -79,6 +77,15 @@ ChatGPT to the rescue though - after a number of iterations, it provided the fol
 ```bash
 headers=$(echo "$response" | awk 'BEGIN{RS="\r\n\r\n"} NR==1')
 body=$(echo "$response" | awk 'BEGIN{RS="\r\n\r\n"} NR>1')
+```
+
+In any event, this approach did not allow me to bypass rate limits:
+
+```
+body: {
+  "message": "You have exceeded a secondary rate limit and have been temporarily blocked from content creation. Please retry your request again later.",
+  "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits"
+}
 ```
 
 # Getting Started with Create React App

@@ -8,6 +8,7 @@ const Repository = ({ issues, setIssues, repository }) => {
       fetch(`http://localhost:8080/issues?repo=${repository}`)
         .then((res) => res.json())
         .then((json) => {
+          debugger;
           setIssues((prev) => {
             return {
               ...prev,
