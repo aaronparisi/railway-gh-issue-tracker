@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 2 ]; then
-  echo "Usage: $0 <github-username>"
+  echo "Usage: $0 <github-username> <github-auth-token>"
   exit 1
 fi
 

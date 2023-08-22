@@ -1,0 +1,18 @@
+.sidebar {
+  flex: 0 0 20vw;
+  border-right: 1px solid black;
+
+  height: 100%;
+  padding: 1rem;
+}
+
+.sidebar ul {
+  list-style-type: none;
+}
+
+.sidebar ul li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: gray;
+  color: white;
+}
