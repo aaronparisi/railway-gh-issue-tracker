@@ -15,7 +15,7 @@ const Sidebar = ({ repos, selectedRepo, setSelectedRepo }) => {
           return (
             <li
               key={repo.name}
-              className={repo.name === selectedRepo ? 'selected' : ''}
+              className={repo.name === selectedRepo.name ? 'selected' : ''}
               onClick={() => {
                 handleRepoSelection(repo.name);
               }}

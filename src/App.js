@@ -6,7 +6,7 @@ import Repository from './components/Repository';
 
 function App() {
   const [repos, setRepos] = useState([]);
-  const [selectedRepo, setSelectedRepo] = useState('');
+  const [selectedRepo, setSelectedRepo] = useState({});
   const [issues, setIssues] = useState({});
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -16,11 +16,33 @@ function App() {
       .then((res) => res.json())
       .then((json) => {
         setRepos(json);
-        setSelectedRepo(json[0].name); // do I want this feature?
+        setSelectedRepo(json[0]);
 
         return json;
       });
   }, []);
+
+  useEffect(() => {
+    if (selectedRepo.name) {
+      fetch(`${apiUrl}/issues?repo=${selectedRepo.name}`)
+        .then((res) => res.json())
+        .then((json) => {
+          setIssues((prev) => {
+            return {
+              ...prev,
+              [selectedRepo.name]: json,
+            };
+          });
+        })
+        .catch((err) => {
+          console.error(
+            'Error fetching issues for repository: ',
+            selectedRepo.name,
+            err
+          );
+        });
+    }
+  }, [selectedRepo.name]);
 
   return (
     <div className="App">
@@ -34,8 +56,7 @@ function App() {
           setSelectedRepo={setSelectedRepo}
         />
         <Repository
-          issues={issues[selectedRepo]}
-          setIssues={setIssues}
+          issues={issues[selectedRepo.name]}
           repository={selectedRepo}
         />
       </section>

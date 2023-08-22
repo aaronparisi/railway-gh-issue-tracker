@@ -1,36 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import '../stylesheets/Repository.css';
 import Issue from './Issue.jsx';
 
-const Repository = ({ issues, setIssues, repository }) => {
-  const apiUrl = process.env.REACT_APP_API_URL;
-
-  useEffect(() => {
-    if (!issues && repository !== '') {
-      fetch(`${apiUrl}/issues?repo=${repository}`)
-        .then((res) => res.json())
-        .then((json) => {
-          setIssues((prev) => {
-            return {
-              ...prev,
-              [repository]: json,
-            };
-          });
-        })
-        .catch((err) => {
-          console.error(
-            'Error fetching issues for repository: ',
-            repository,
-            err
-          );
-        });
-    }
-  });
-
+const Repository = ({ issues, repository }) => {
   return (
     <section className="repository">
-      <h2>Issues</h2>
+      <h2>
+        Issues for <a href={repository.url}>{repository.name}</a>
+      </h2>
       <ul>
         {issues &&
           issues.map((issue) => {
