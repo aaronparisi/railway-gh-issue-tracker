@@ -24,7 +24,6 @@ function App() {
 
   useEffect(() => {
     if (selectedRepo.name && !issues[selectedRepo.name]) {
-      console.log('fetching issues for repo: ', selectedRepo.name);
       fetch(`${apiUrl}/issues?repo=${selectedRepo.name}`)
         .then((res) => res.json())
         .then((json) => {
