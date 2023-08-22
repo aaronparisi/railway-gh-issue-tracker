@@ -23,16 +23,19 @@ for x in {1..10}; do
   gh repo create "repo$x" --private -d "Repo No. $x"
   # create repo issues
   for y in {1..10}; do
-    selected_labels_string=""
+    selected_labels=()
 
     for label in "${labels[@]}"; do
-      if (( RANDOM % 2 == 0 )); then
-        selected_labels_string+="$label,"
+      random_number=$(awk -v seed="$RANDOM" 'BEGIN{srand(seed);print rand()}')
+
+      if (( $(echo "$random_number < 0.5" | bc -l) )); then
+        selected_labels+=("$label")
       fi
     done
 
-    # Remove the trailing comma
-    selected_labels_string="${selected_labels_string%,}"
+    labels_json=$(printf '"%s",' "${selected_labels[@]}")
+    labels_json="[${labels_json%,}]"
+    echo "labels_json: $labels_json"
 
     echo "creating issue $y"
     # TODO remove hard-coded token!!!!
@@ -42,8 +45,7 @@ for x in {1..10}; do
       -H "X-GitHub-Api-Version: 2022-11-28" \
       -H "Authorization: Bearer $gh_auth_token" \
       https://api.github.com/repos/$gh_user/repo$x/issues \
-      -d "{\"title\":\"Issue No. $y\",\"body\":\"blah blah blah\",\"assignee\":\"$gh_user\",\"labels\":[\"bug\", \"wontfix\"]}")
-    echo $response | pbcopy
+      -d "{\"title\":\"Issue No. $y\",\"body\":\"blah blah blah\",\"assignee\":\"$gh_user\",\"labels\":$labels_json}")
 
     headers=$(echo "$response" | awk 'BEGIN{RS="\r\n\r\n"} NR==1')
     limit=$(echo "$headers" | grep -i '^x-ratelimit-limit:' | awk '{print $2}')
