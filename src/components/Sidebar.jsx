@@ -17,7 +17,7 @@ const Sidebar = ({ repos, selectedRepo, setSelectedRepo }) => {
               key={repo.name}
               className={repo.name === selectedRepo.name ? 'selected' : ''}
               onClick={() => {
-                handleRepoSelection(repo.name);
+                handleRepoSelection(repo);
               }}
             >
               {repo.name}
