@@ -12,6 +12,7 @@ function App() {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
+    // fetch repo information
     fetch(`${apiUrl}/repos`)
       .then((res) => res.json())
       .then((json) => {
@@ -24,6 +25,7 @@ function App() {
 
   useEffect(() => {
     if (selectedRepo.name && !issues[selectedRepo.name]) {
+      // fetch issue information
       fetch(`${apiUrl}/issues?repo=${selectedRepo.name}`)
         .then((res) => res.json())
         .then((json) => {

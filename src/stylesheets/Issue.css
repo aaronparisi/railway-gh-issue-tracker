@@ -7,3 +7,57 @@
 
   overflow: scroll;
 }
+
+.labels-list {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.label {
+  border: 1px solid black;
+  padding: 0.1rem 0.3rem;
+  border-radius: 5px;
+}
+
+.label-documentation {
+  background-color: #0275ca;
+  color: white;
+}
+
+.label-duplicate {
+  background-color: #cfd3d7;
+}
+
+.label-enhancement {
+  background-color: #a2eeef;
+}
+
+.label-invalid {
+  background-color: #dfe166;
+}
+
+.label-wontfix {
+  background-color: #ffffff;
+}
+
+.label-question {
+  background-color: #d876e3;
+  color: white;
+}
+
+.label-good-first-issue {
+  background-color: #7057ff;
+  color: white;
+}
+
+.label-bug {
+  background-color: #d73a4a;
+  color: white;
+}
+
+.label-help-wanted {
+  background-color: #7057ff;
+  color: white;
+}

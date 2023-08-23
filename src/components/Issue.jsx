@@ -6,15 +6,20 @@ const Issue = ({ issue }) => {
   return (
     <div className="issue">
       <h3>
-        <a href={issue.url}>{issue.title}</a>
+        <a href={issue.url}>{issue.title}</a> | State: {issue.state}
       </h3>
       <p>{issue.body}</p>
-      <p>{issue.state}</p>
-      <ul>
+      <h4>Labels:</h4>
+      <section className="labels-list">
         {issue.labels.map((label) => (
-          <li key={label.name}>{label.name}</li>
+          <li
+            className={`label label-${label.name.split(' ').join('-')}`}
+            key={label.name}
+          >
+            {label.name}
+          </li>
         ))}
-      </ul>
+      </section>
     </div>
   );
 };
