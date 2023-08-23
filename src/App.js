@@ -49,7 +49,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Git Issue Tracker for user: TODO </h1>
+        <h1>
+          Git Issue Tracker for user:{' '}
+          <a href="https://www.github.com/railway-aaron-parisi">
+            railway-aaron-parisi
+          </a>{' '}
+        </h1>
       </header>
       <section>
         <Sidebar
