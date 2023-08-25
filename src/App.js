@@ -5,46 +5,24 @@ import Sidebar from './components/Sidebar';
 import Repository from './components/Repository';
 
 function App() {
-  const [repos, setRepos] = useState([]);
+  const [repos, setRepos] = useState({});
   const [selectedRepo, setSelectedRepo] = useState({});
-  const [issues, setIssues] = useState({});
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // fetch repo information
-    fetch(`${apiUrl}/repos`)
+    console.log('fetching repo data from server...');
+    fetch(`${apiUrl}/all-data`)
       .then((res) => res.json())
       .then((json) => {
         setRepos(json);
-        setSelectedRepo(json[0]);
+        setSelectedRepo(Object.keys(json)[0]);
 
+        console.log('done fetching repo data');
         return json;
       });
   }, []);
-
-  useEffect(() => {
-    if (selectedRepo.name && !issues[selectedRepo.name]) {
-      // fetch issue information
-      fetch(`${apiUrl}/issues?repo=${selectedRepo.name}`)
-        .then((res) => res.json())
-        .then((json) => {
-          setIssues((prev) => {
-            return {
-              ...prev,
-              [selectedRepo.name]: json,
-            };
-          });
-        })
-        .catch((err) => {
-          console.error(
-            'Error fetching issues for repository: ',
-            selectedRepo.name,
-            err
-          );
-        });
-    }
-  }, [selectedRepo.name]);
 
   return (
     <div className="App">
@@ -62,12 +40,12 @@ function App() {
       </header>
       <section>
         <Sidebar
-          repos={repos}
+          repoNames={Object.keys(repos)}
           selectedRepo={selectedRepo}
           setSelectedRepo={setSelectedRepo}
         />
         <Repository
-          issues={issues[selectedRepo.name]}
+          issues={repos[selectedRepo]?.issues || []}
           repository={selectedRepo}
         />
       </section>
