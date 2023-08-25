@@ -55,6 +55,10 @@ function App() {
             railway-aaron-parisi
           </a>{' '}
         </h1>
+        <span>
+          (read about it{' '}
+          <a href="https://blog.aaronparisi.dev/gh-issue-tracker">here</a>)
+        </span>
       </header>
       <section>
         <Sidebar
