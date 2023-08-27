@@ -25,6 +25,3 @@ const Issue = ({ issue }) => {
 };
 
 export default Issue;
-
-// note: I made 'labels-list' a <section> to avoid <ul> default styling.
-//       probably a css reset would be a better approach.

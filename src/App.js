@@ -2,28 +2,49 @@ import { useEffect, useState } from 'react';
 import './stylesheets/App.css';
 
 import Sidebar from './components/Sidebar';
-import Repository from './components/Repository';
+import Issues from './components/Issues';
 
 function App() {
-  const [repos, setRepos] = useState({});
-  const [selectedRepo, setSelectedRepo] = useState('');
+  const [repos, setRepos] = useState([]);
+  const [selectedRepo, setSelectedRepo] = useState({});
+  const [issues, setIssues] = useState({});
 
-  // dev vs prod
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // fetch repo information
-    console.log('fetching repo data from server...');
-    fetch(`${apiUrl}/all-data`)
+    fetch(`${apiUrl}/repos`)
       .then((res) => res.json())
       .then((json) => {
         setRepos(json);
-        setSelectedRepo(Object.keys(json)[0]);
+        setSelectedRepo(json[0]);
 
-        console.log('done fetching repo data');
-        return json; // note: not sure why I returned this here...
+        return json;
       });
   }, []);
+
+  useEffect(() => {
+    if (selectedRepo.name && !issues[selectedRepo.name]) {
+      // fetch issue information
+      fetch(`${apiUrl}/issues?repo=${selectedRepo.name}`)
+        .then((res) => res.json())
+        .then((json) => {
+          setIssues((prev) => {
+            return {
+              ...prev,
+              [selectedRepo.name]: json,
+            };
+          });
+        })
+        .catch((err) => {
+          console.error(
+            'Error fetching issues for repository: ',
+            selectedRepo.name,
+            err
+          );
+        });
+    }
+  }, [selectedRepo.name]);
 
   return (
     <div className="App">
@@ -41,14 +62,11 @@ function App() {
       </header>
       <section>
         <Sidebar
-          repoNames={Object.keys(repos)}
+          repos={repos}
           selectedRepo={selectedRepo}
           setSelectedRepo={setSelectedRepo}
         />
-        <Repository
-          issues={repos[selectedRepo]?.issues || []}
-          repository={selectedRepo}
-        />
+        <Issues issues={issues[selectedRepo.name]} repository={selectedRepo} />
       </section>
     </div>
   );

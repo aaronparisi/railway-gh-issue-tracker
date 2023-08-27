@@ -1,11 +1,11 @@
 import React from 'react';
 
-import '../stylesheets/Repository.css';
+import '../stylesheets/Issues.css';
 import Issue from './Issue.jsx';
 
-const Repository = ({ issues, repository }) => {
+const Issues = ({ issues, repository }) => {
   return (
-    <section className="repository">
+    <section className="issues">
       <h2>
         Issues for <a href={repository.url}>{repository.name}</a>
       </h2>
@@ -19,4 +19,4 @@ const Repository = ({ issues, repository }) => {
   );
 };
 
-export default Repository;
+export default Issues;

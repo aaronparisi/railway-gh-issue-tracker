@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../stylesheets/Sidebar.css';
 
-const Sidebar = ({ repoNames, selectedRepo, setSelectedRepo }) => {
+const Sidebar = ({ repos, selectedRepo, setSelectedRepo }) => {
   const handleRepoSelection = (repo) => {
     setSelectedRepo(repo);
   };
@@ -11,16 +11,16 @@ const Sidebar = ({ repoNames, selectedRepo, setSelectedRepo }) => {
     <section className="sidebar">
       <h2>Repositories</h2>
       <ul>
-        {repoNames.map((repoName) => {
+        {repos.map((repo) => {
           return (
             <li
-              key={repoName}
-              className={repoName === selectedRepo ? 'selected' : ''}
+              key={repo.name}
+              className={repo.name === selectedRepo.name ? 'selected' : ''}
               onClick={() => {
-                handleRepoSelection(repoName);
+                handleRepoSelection(repo);
               }}
             >
-              {repoName}
+              {repo.name}
             </li>
           );
         })}
