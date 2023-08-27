@@ -6,8 +6,9 @@ import Repository from './components/Repository';
 
 function App() {
   const [repos, setRepos] = useState({});
-  const [selectedRepo, setSelectedRepo] = useState({});
+  const [selectedRepo, setSelectedRepo] = useState('');
 
+  // dev vs prod
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function App() {
         setSelectedRepo(Object.keys(json)[0]);
 
         console.log('done fetching repo data');
-        return json;
+        return json; // note: not sure why I returned this here...
       });
   }, []);
 
