@@ -12,12 +12,12 @@ const Issue = ({ issue }) => {
       <h4>Labels:</h4>
       <section className="labels-list">
         {issue.labels.map((label) => (
-          <li
+          <div
             className={`label label-${label.name.split(' ').join('-')}`}
             key={label.name}
           >
             {label.name}
-          </li>
+          </div>
         ))}
       </section>
     </div>
